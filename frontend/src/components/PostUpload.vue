@@ -6,13 +6,14 @@
         <input type="file" accept="image/*" class="fileChooser" />
       </label>
       <textarea placeholder="寫點什麼吧..." class="postContentInput"></textarea>
-      <button class="pubBtn">POST</button>
+      <TheButton class="pubBtn">POST</TheButton>
     </div>
   </TheModal>
 </template>
 <script setup>
 import TheModal from './TheModal.vue';
 import TheIcon from './TheIcon.vue';
+import TheButton from './TheButton.vue';
 </script>
 <style scoped>
 .postUpload {
