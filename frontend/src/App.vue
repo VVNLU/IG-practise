@@ -1,12 +1,23 @@
 <template>
-  <header class="header">
-    <NavBar />
-  </header>
-  <router-view></router-view>
+  <template v-if="$route.name !== 'login'">
+    <header class="header">
+      <NavBar />
+    </header>
+    <TheLayout>
+      <router-view></router-view>
+    </TheLayout>
+  </template>
+  <template v-else>
+    <router-view></router-view>
+  </template>
+  <footer class="footer" :class="{ inside: $route.name === 'login' }">
+    &copy;Vivian. All Right Reserved.
+  </footer>
 </template>
 <script setup>
 import './assets/base.css';
 import NavBar from './components/NavBar.vue';
+import TheLayout from './components/TheLayout.vue';
 </script>
 <style scoped>
 .header {
