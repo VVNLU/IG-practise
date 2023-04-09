@@ -6,7 +6,7 @@
         <input type="file" accept="image/*" class="fileChooser" />
       </label>
       <textarea placeholder="寫點什麼吧..." class="postContentInput"></textarea>
-      <button class="pubBtn">PSOT</button>
+      <button class="pubBtn">POST</button>
     </div>
   </TheModal>
 </template>
