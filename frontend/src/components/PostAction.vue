@@ -1,7 +1,9 @@
 <template>
-  <TheIcon icon="like" fill="none" stroke="#000000" /><span>1.5W</span>
-  <TheIcon icon="comment" fill="none" stroke="#000000" /><span>1W</span>
-  <TheIcon icon="favorite" fill="none" stroke="#000000" /><span>99W</span>
+  <div class="postActions">
+    <TheIcon icon="like" fill="none" stroke="#000000" /><span>1.5W</span>
+    <TheIcon icon="comment" fill="none" stroke="#000000" /><span>1W</span>
+    <TheIcon icon="favorite" fill="none" stroke="#000000" /><span>99W</span>
+  </div>
 </template>
 <script setup>
 import TheIcon from './TheIcon.vue';
