@@ -1,7 +1,7 @@
 <template>
-  <div class="content">
-    <div class="postList">
-      <div class="postItem" v-for="n in 10" :key="n">
+  <div>
+    <PostList>
+      <PostItem v-for="n in 10" :key="n">
         <img
           src=""
           alt=""
@@ -20,15 +20,17 @@
             <p>HI iam VVN</p>
           </div>
         </div>
-      </div>
-    </div>
+      </PostItem>
+    </PostList>
   </div>
-  <PostDetails />
-  <PostUpload />
+  <!-- <PostDetails /> -->
+  <!-- <PostUpload /> -->
 </template>
 <script setup>
+import PostList from '../components/PostList.vue';
 import PostAction from '../components/PostAction.vue';
 import TheAvatar from '../components/TheAvatar.vue';
-import PostDetails from '../components/PostAction.vue';
-import PostUpload from '../components/PostUpload.vue';
+import PostItem from '../components/PostItem.vue';
+// import PostDetails from '../components/PostAction.vue';
+// import PostUpload from '../components/PostUpload.vue';
 </script>
