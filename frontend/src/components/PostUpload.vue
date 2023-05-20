@@ -1,12 +1,22 @@
 <template>
-  <TheModal>
+  <TheModal @close="store.commit('changeShowPostUpload', false)">
     <div class="postUpload">
       <label class="upload">
-        <TheIcon icon="upload-image" />
-        <input type="file" accept="image/*" class="fileChooser" />
+        <img v-if="imgObjUrl" :src="imgObjUrl" class="preview" />
+        <TheIcon v-else icon="upload-image" />
+        <input
+          type="file"
+          accept="image/*"
+          class="fileChooser"
+          @change="handleImageUpload"
+        />
       </label>
-      <textarea placeholder="寫點什麼吧..." class="postContentInput"></textarea>
-      <TheButton class="pubBtn">POST</TheButton>
+      <textarea
+        placeholder="寫點什麼吧..."
+        class="postContentInput"
+        v-model="description"
+      ></textarea>
+      <TheButton class="pubBtn" @click="publishPost">POST</TheButton>
     </div>
   </TheModal>
 </template>
@@ -14,6 +24,29 @@
 import TheModal from './TheModal.vue';
 import TheIcon from './TheIcon.vue';
 import TheButton from './TheButton.vue';
+import { useStore } from 'vuex';
+import { ref } from 'vue';
+
+const store = useStore();
+
+const imgObjUrl = ref('');
+const image = ref(null);
+const description = ref('');
+
+async function handleImageUpload(e) {
+  const imageFile = e.target.files[0];
+  if (imageFile) {
+    imgObjUrl.value = URL.createObjectURL(imageFile);
+    image.value = imageFile;
+  }
+}
+
+function publishPost() {
+  store.dispatch('uploadPost', {
+    image: image.value,
+    description: description.value,
+  });
+}
 </script>
 <style scoped>
 .postUpload {

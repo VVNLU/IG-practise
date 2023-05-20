@@ -3,25 +3,72 @@
     <img src="../assets/phone.png" alt="" class="phoneImage" />
     <div class="loginForm">
       <img src="../assets/logo.svg" alt="" />
-      <form>
-        <input type="email" placeholder="電子郵件" />
-        <input type="text" placeholder="用戶名" v-if="!isLogin" />
-        <input type="password" placeholder="密碼" />
-        <button type="submit" class="loginButton" @click="isLogin = !isLogin">
+      <form @submit.prevent>
+        <input type="email" placeholder="電子郵件" v-model="email" />
+        <input
+          v-if="!isLogin"
+          type="text"
+          placeholder="用戶名"
+          v-model="username"
+        />
+        <input type="password" placeholder="密碼" v-model="password" />
+        <button
+          type="submit"
+          class="loginButton"
+          @click="isLogin ? login() : register()"
+        >
           {{ isLogin ? '登入' : '註冊' }}
         </button>
-        <p class="info" @click="isLogin = !isLogin">
+        <p @click="isLogin = !isLogin" class="info">
           {{
             isLogin ? '還沒有帳號嗎？立即註冊！' : '已經有帳號了？立即登入！'
           }}
         </p>
+        <div v-if="!isLogin" class="agreement">
+          <input
+            type="checkbox"
+            v-model="agreementChecked"
+          />勾選表示同意隱私協議和使用規範
+        </div>
       </form>
     </div>
   </div>
 </template>
 <script setup>
 import { ref } from 'vue';
+import { useStore } from 'vuex';
+import { useRouter } from 'vue-router';
+
 const isLogin = ref(true);
+
+const email = ref('');
+const username = ref('');
+const password = ref('');
+const agreementChecked = ref(false);
+
+const store = useStore();
+const router = useRouter();
+
+async function register() {
+  if (!agreementChecked.value) {
+    alert('請先閱讀並同意隱私協議和使用規範');
+    return;
+  }
+  await store.dispatch('registerUser', {
+    email: email.value,
+    username: username.value,
+    password: password.value,
+  });
+  router.replace('/');
+}
+
+async function login() {
+  await store.dispatch('loginUser', {
+    email: email.value,
+    password: password.value,
+  });
+  router.replace('/');
+}
 </script>
 <style scoped>
 .loginPage {
